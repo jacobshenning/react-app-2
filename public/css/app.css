@@ -10652,3 +10652,16 @@ a.text-dark:focus {
   max-width: 100%;
 }
 
+.progress {
+  border-radius: 0;
+  height: 2px;
+}
+
+.progress-bar {
+  width: 100%;
+}
+
+.progress-bar-animated {
+  height: 4px;
+}
+

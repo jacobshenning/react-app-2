@@ -96,7 +96,6 @@ class NewProject extends Component {
             <div className='col-lg-9 col-md-8'>
             <div className='card'>
               <div className='card-header'>Create new project</div>
-
               <div className='card-body'>
 
                 <form onSubmit={this.handleCreateNewProject}>

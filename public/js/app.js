@@ -66621,7 +66621,8 @@ function (_Component) {
     _this = _possibleConstructorReturn(this, _getPrototypeOf(ProjectsList).call(this));
     _this.state = {
       user: [],
-      projects: []
+      projects: [],
+      loading: false
     };
     return _this;
   }
@@ -66631,6 +66632,9 @@ function (_Component) {
     value: function componentDidMount() {
       var _this2 = this;
 
+      this.setState({
+        loading: true
+      });
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/auth/user').then(function (response) {
         _this2.setState({
           user: response.data
@@ -66641,7 +66645,8 @@ function (_Component) {
       });
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/projects').then(function (response) {
         _this2.setState({
-          projects: response.data
+          projects: response.data,
+          loading: false
         });
       })["catch"](function (error) {
         console.log(error);
@@ -66650,8 +66655,11 @@ function (_Component) {
   }, {
     key: "render",
     value: function render() {
-      var user = this.state.user;
-      var projects = this.state.projects;
+      var _this$state = this.state,
+          user = _this$state.user,
+          projects = _this$state.projects,
+          loading = _this$state.loading;
+      var loadingClass = loading ? 'progress-bar-striped progress-bar-animated' : '';
       return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         id: "dashboard"
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_Sections_Navs_Header__WEBPACK_IMPORTED_MODULE_3__["default"], null), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
@@ -66667,6 +66675,10 @@ function (_Component) {
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: "card-header"
       }, "All projects"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "progress"
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: 'progress-bar' + loadingClass
+      })), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: "card-body"
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
         className: "btn btn-primary btn-sm mb-3",
