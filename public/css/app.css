@@ -10643,7 +10643,7 @@ a.text-dark:focus {
 }
 
 #chat-box {
-  height: 450px;
+  height: 400px;
   overflow-y: scroll;
   overflow-x: hidden;
 }
@@ -10663,5 +10663,13 @@ a.text-dark:focus {
 
 .loading-bar-tall {
   height: 4px;
+}
+
+@media (min-width: 768px) {
+  .dont-collapse-sm {
+    display: block;
+    height: auto !important;
+    visibility: visible;
+  }
 }
 

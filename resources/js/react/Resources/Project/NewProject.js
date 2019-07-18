@@ -119,7 +119,7 @@ class NewProject extends Component {
                     <input
                       id='name'
                       type='text'
-                      className={`form-control ${this.hasErrorFor('name') ? 'is-invalid' : ''}`}
+                      className={`form-control form-control-lg ${this.hasErrorFor('name') ? 'is-invalid' : ''}`}
                       name='name'
                       value={this.state.name}
                       onChange={this.handleFieldChange}
@@ -131,7 +131,7 @@ class NewProject extends Component {
                     <label htmlFor='description'>Project description</label>
                     <textarea
                       id='description'
-                      className={`form-control ${this.hasErrorFor('description') ? 'is-invalid' : ''}`}
+                      className={`form-control form-control-lg ${this.hasErrorFor('description') ? 'is-invalid' : ''}`}
                       name='description'
                       rows='10'
                       value={this.state.description}

@@ -106,7 +106,7 @@ class RegisterRequest extends Component {
                       <input
                         id='name'
                         type='text'
-                        className={`form-control ${this.hasErrorFor('name') ? 'is-invalid' : ''}`}
+                        className={`form-control form-control-lg ${this.hasErrorFor('name') ? 'is-invalid' : ''}`}
                         name='name'
                         value={this.state.name}
                         onChange={this.handleFieldChange}
@@ -120,7 +120,7 @@ class RegisterRequest extends Component {
                       <input
                         id='email'
                         type='email'
-                        className={`form-control ${this.hasErrorFor('email') ? 'is-invalid' : ''}`}
+                        className={`form-control form-control-lg ${this.hasErrorFor('email') ? 'is-invalid' : ''}`}
                         name='email'
                         value={this.state.email}
                         onChange={this.handleFieldChange}
@@ -134,7 +134,7 @@ class RegisterRequest extends Component {
                       <input
                         id='password'
                         type='password'
-                        className={`form-control ${this.hasErrorFor('password') ? 'is-invalid' : ''}`}
+                        className={`form-control form-control-lg ${this.hasErrorFor('password') ? 'is-invalid' : ''}`}
                         name='password'
                         rows='10'
                         value={this.state.password}
@@ -150,7 +150,7 @@ class RegisterRequest extends Component {
                       <input
                         id='password_confirmation'
                         type='password'
-                        className={`form-control ${this.hasErrorFor('password_confirmation') ? 'is-invalid' : ''}`}
+                        className={`form-control form-control-lg ${this.hasErrorFor('password_confirmation') ? 'is-invalid' : ''}`}
                         name='password_confirmation'
                         rows='10'
                         value={this.state.password_confirmation}

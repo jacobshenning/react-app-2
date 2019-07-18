@@ -32,15 +32,15 @@ class MessageBox extends Component {
   }
 
   handleMessageSubmit (event) {
+    this.setState({
+      loading: true
+    })
+
     event.preventDefault()
 
     const data = {
       message: this.state.message,
     }
-
-    this.setState({
-      loading: true
-    })
 
     axios
       .post('/api/messages/create', data)
@@ -159,14 +159,14 @@ class MessageBox extends Component {
                     <input
                       id="message"
                       type='text'
-                      className={`form-control  ${this.hasErrorFor('message') ? 'is-invalid' : ''}`}
+                      className={`form-control form-control-lg  ${this.hasErrorFor('message') ? 'is-invalid' : ''}`}
                       placeholder="Message..."
                       name="message"
                       value={this.state.message}
                       onChange={this.handleFieldChange}
                     />
                     <div className="input-group-append">
-                      <button className="btn btn-primary" type="submit">Send</button>
+                      <button className="btn btn-primary px-4" type="submit">Send</button>
                     </div>
                     {this.renderErrorFor('message')}
                   </div>

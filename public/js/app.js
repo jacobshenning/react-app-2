@@ -65910,7 +65910,7 @@ function (_Component) {
       }, "Email"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
         id: "email",
         type: "email",
-        className: "form-control ".concat(this.hasErrorFor('email') ? 'is-invalid' : ''),
+        className: "form-control form-control-lg ".concat(this.hasErrorFor('email') ? 'is-invalid' : ''),
         name: "email",
         value: this.state.email,
         onChange: this.handleFieldChange,
@@ -65922,7 +65922,7 @@ function (_Component) {
       }, "Password"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
         id: "password",
         type: "password",
-        className: "form-control ".concat(this.hasErrorFor('password') ? 'is-invalid' : ''),
+        className: "form-control form-control-lg ".concat(this.hasErrorFor('password') ? 'is-invalid' : ''),
         name: "password",
         rows: "10",
         value: this.state.password,
@@ -66100,7 +66100,7 @@ function (_Component) {
       }, "Name"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
         id: "name",
         type: "text",
-        className: "form-control ".concat(this.hasErrorFor('name') ? 'is-invalid' : ''),
+        className: "form-control form-control-lg ".concat(this.hasErrorFor('name') ? 'is-invalid' : ''),
         name: "name",
         value: this.state.name,
         onChange: this.handleFieldChange,
@@ -66112,7 +66112,7 @@ function (_Component) {
       }, "Email"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
         id: "email",
         type: "email",
-        className: "form-control ".concat(this.hasErrorFor('email') ? 'is-invalid' : ''),
+        className: "form-control form-control-lg ".concat(this.hasErrorFor('email') ? 'is-invalid' : ''),
         name: "email",
         value: this.state.email,
         onChange: this.handleFieldChange,
@@ -66124,7 +66124,7 @@ function (_Component) {
       }, "Password"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
         id: "password",
         type: "password",
-        className: "form-control ".concat(this.hasErrorFor('password') ? 'is-invalid' : ''),
+        className: "form-control form-control-lg ".concat(this.hasErrorFor('password') ? 'is-invalid' : ''),
         name: "password",
         rows: "10",
         value: this.state.password,
@@ -66137,7 +66137,7 @@ function (_Component) {
       }, "Confirm Password"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
         id: "password_confirmation",
         type: "password",
-        className: "form-control ".concat(this.hasErrorFor('password_confirmation') ? 'is-invalid' : ''),
+        className: "form-control form-control-lg ".concat(this.hasErrorFor('password_confirmation') ? 'is-invalid' : ''),
         name: "password_confirmation",
         rows: "10",
         value: this.state.password_confirmation,
@@ -66248,13 +66248,13 @@ function (_Component) {
     value: function handleMessageSubmit(event) {
       var _this2 = this;
 
+      this.setState({
+        loading: true
+      });
       event.preventDefault();
       var data = {
         message: this.state.message
       };
-      this.setState({
-        loading: true
-      });
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/messages/create', data).then(function (response) {
         _this2.setState({
           message: ''
@@ -66386,7 +66386,7 @@ function (_Component) {
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
         id: "message",
         type: "text",
-        className: "form-control  ".concat(this.hasErrorFor('message') ? 'is-invalid' : ''),
+        className: "form-control form-control-lg  ".concat(this.hasErrorFor('message') ? 'is-invalid' : ''),
         placeholder: "Message...",
         name: "message",
         value: this.state.message,
@@ -66394,7 +66394,7 @@ function (_Component) {
       }), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: "input-group-append"
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
-        className: "btn btn-primary",
+        className: "btn btn-primary px-4",
         type: "submit"
       }, "Send")), this.renderErrorFor('message'))))))));
     }
@@ -66573,7 +66573,7 @@ function (_Component) {
       }, "Project name"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
         id: "name",
         type: "text",
-        className: "form-control ".concat(this.hasErrorFor('name') ? 'is-invalid' : ''),
+        className: "form-control form-control-lg ".concat(this.hasErrorFor('name') ? 'is-invalid' : ''),
         name: "name",
         value: this.state.name,
         onChange: this.handleFieldChange
@@ -66583,7 +66583,7 @@ function (_Component) {
         htmlFor: "description"
       }, "Project description"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("textarea", {
         id: "description",
-        className: "form-control ".concat(this.hasErrorFor('description') ? 'is-invalid' : ''),
+        className: "form-control form-control-lg ".concat(this.hasErrorFor('description') ? 'is-invalid' : ''),
         name: "description",
         rows: "10",
         value: this.state.description,
@@ -66963,7 +66963,7 @@ function (_Component) {
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
         type: "text",
         name: "title",
-        className: "form-control ".concat(this.hasErrorFor('title') ? 'is-invalid' : ''),
+        className: "form-control form-control-lg ".concat(this.hasErrorFor('title') ? 'is-invalid' : ''),
         placeholder: "Task title",
         value: this.state.title,
         onChange: this.handleFieldChange
@@ -67591,7 +67591,7 @@ function (_Component) {
       }
 
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("nav", {
-        className: "navbar navbar-expand-lg navbar-dark bg-dark shadow-sm"
+        className: "navbar py-3 navbar-expand-lg navbar-dark bg-dark shadow-sm"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
         className: "navbar-brand",
         to: "/"

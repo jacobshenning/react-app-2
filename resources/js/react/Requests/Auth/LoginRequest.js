@@ -97,7 +97,7 @@ class LoginRequest extends Component {
                       <input
                         id='email'
                         type='email'
-                        className={`form-control ${this.hasErrorFor('email') ? 'is-invalid' : ''}`}
+                        className={`form-control form-control-lg ${this.hasErrorFor('email') ? 'is-invalid' : ''}`}
                         name='email'
                         value={this.state.email}
                         onChange={this.handleFieldChange}
@@ -111,7 +111,7 @@ class LoginRequest extends Component {
                       <input
                         id='password'
                         type='password'
-                        className={`form-control ${this.hasErrorFor('password') ? 'is-invalid' : ''}`}
+                        className={`form-control form-control-lg ${this.hasErrorFor('password') ? 'is-invalid' : ''}`}
                         name='password'
                         rows='10'
                         value={this.state.password}
