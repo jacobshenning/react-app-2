@@ -33,9 +33,18 @@ class AuthController extends Controller
     {
         $credentials = $request->validated();
 
-        if (Auth::once($credentials)) {
-            return Auth::user()->api_token;
+        $user = User::where('email', $credentials['email'])->first();
+
+        if (Hash::check($credentials['password'], $user->password)) {
+            return $user->api_token;
         }
+
+        return response()->json([
+          'message' => 'Invalid credentials',
+          'errors' => [
+            'password' => ['Invalid password']
+            ]
+          ], 401);
     }
 
     /**
