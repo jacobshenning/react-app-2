@@ -14,6 +14,7 @@ class RegisterRequest extends Component {
       password: '',
       password_confirmation: '',
       remember: false,
+      loading: false,
       errors: []
     }
 
@@ -37,6 +38,9 @@ class RegisterRequest extends Component {
   }
 
   handleRegisterAttempt (event) {
+    this.setState({
+      loading: true
+    })
     event.preventDefault();
 
     this.setState({
@@ -68,7 +72,8 @@ class RegisterRequest extends Component {
       })
       .catch(error => {
         this.setState({
-          errors: error.response.data.errors
+          errors: error.response.data.errors,
+          loading: false,
         })
       })
   }
@@ -88,6 +93,12 @@ class RegisterRequest extends Component {
   }
 
   render () {
+
+    const { loading } = this.state
+
+    const loadingBarClass = loading ? 'loading-bar-tall' : ''
+    const progressBarClass = loading ? 'progress-bar-striped progress-bar-animated' : ''
+
     return (
       <div id='login-request'>
         <Header />
@@ -96,6 +107,10 @@ class RegisterRequest extends Component {
             <div className='col-md-6'>
               <div className='card'>
                 <div className='card-header'>Register</div>
+
+                <div className={'progress ' + loadingBarClass}>
+                  <div className={'progress-bar ' + progressBarClass}></div>
+                </div>
 
                 <div className='card-body'>
 

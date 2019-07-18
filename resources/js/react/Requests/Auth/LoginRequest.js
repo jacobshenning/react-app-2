@@ -11,6 +11,7 @@ class LoginRequest extends Component {
       email: '',
       password: '',
       remember: false,
+      loading: false,
       errors: []
     }
 
@@ -34,6 +35,10 @@ class LoginRequest extends Component {
   }
 
   handleLoginAttempt (event) {
+    this.setState({
+      loading: true
+    })
+
     event.preventDefault();
 
     const { history } = this.props
@@ -59,7 +64,8 @@ class LoginRequest extends Component {
       })
       .catch(error => {
         this.setState({
-          errors: error.response.data.errors
+          errors: error.response.data.errors,
+          loading: false,
         })
       })
   }
@@ -79,6 +85,12 @@ class LoginRequest extends Component {
   }
 
   render () {
+
+    const { loading } = this.state
+
+    const loadingBarClass = loading ? 'loading-bar-tall' : ''
+    const progressBarClass = loading ? 'progress-bar-striped progress-bar-animated' : ''
+
     return (
       <div id='login-request'>
         <Header />
@@ -87,6 +99,10 @@ class LoginRequest extends Component {
             <div className='col-md-6'>
               <div className='card'>
                 <div className='card-header'>Login</div>
+
+                <div className={'progress ' + loadingBarClass}>
+                  <div className={'progress-bar ' + progressBarClass}></div>
+                </div>
 
                 <div className='card-body'>
 

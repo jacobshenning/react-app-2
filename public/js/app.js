@@ -65823,6 +65823,7 @@ function (_Component) {
       email: '',
       password: '',
       remember: false,
+      loading: false,
       errors: []
     };
     _this.handleFieldChange = _this.handleFieldChange.bind(_assertThisInitialized(_this));
@@ -65850,6 +65851,9 @@ function (_Component) {
     value: function handleLoginAttempt(event) {
       var _this2 = this;
 
+      this.setState({
+        loading: true
+      });
       event.preventDefault();
       var history = this.props.history;
       var credentials = {
@@ -65866,7 +65870,8 @@ function (_Component) {
         history.push('/dashboard');
       })["catch"](function (error) {
         _this2.setState({
-          errors: error.response.data.errors
+          errors: error.response.data.errors,
+          loading: false
         });
       });
     }
@@ -65887,6 +65892,9 @@ function (_Component) {
   }, {
     key: "render",
     value: function render() {
+      var loading = this.state.loading;
+      var loadingBarClass = loading ? 'loading-bar-tall' : '';
+      var progressBarClass = loading ? 'progress-bar-striped progress-bar-animated' : '';
       return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         id: "login-request"
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_Sections_Navs_Header__WEBPACK_IMPORTED_MODULE_2__["default"], null), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
@@ -65900,6 +65908,10 @@ function (_Component) {
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: "card-header"
       }, "Login"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: 'progress ' + loadingBarClass
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: 'progress-bar ' + progressBarClass
+      })), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: "card-body"
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("form", {
         onSubmit: this.handleLoginAttempt
@@ -66008,6 +66020,7 @@ function (_Component) {
       password: '',
       password_confirmation: '',
       remember: false,
+      loading: false,
       errors: []
     };
     _this.handleFieldChange = _this.handleFieldChange.bind(_assertThisInitialized(_this));
@@ -66035,6 +66048,9 @@ function (_Component) {
     value: function handleRegisterAttempt(event) {
       var _this2 = this;
 
+      this.setState({
+        loading: true
+      });
       event.preventDefault();
       this.setState({
         errors: []
@@ -66056,7 +66072,8 @@ function (_Component) {
         history.push('/dashboard');
       })["catch"](function (error) {
         _this2.setState({
-          errors: error.response.data.errors
+          errors: error.response.data.errors,
+          loading: false
         });
       });
     }
@@ -66077,6 +66094,9 @@ function (_Component) {
   }, {
     key: "render",
     value: function render() {
+      var loading = this.state.loading;
+      var loadingBarClass = loading ? 'loading-bar-tall' : '';
+      var progressBarClass = loading ? 'progress-bar-striped progress-bar-animated' : '';
       return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         id: "login-request"
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_Sections_Navs_Header__WEBPACK_IMPORTED_MODULE_2__["default"], null), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
@@ -66090,6 +66110,10 @@ function (_Component) {
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: "card-header"
       }, "Register"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: 'progress ' + loadingBarClass
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: 'progress-bar ' + progressBarClass
+      })), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: "card-body"
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("form", {
         onSubmit: this.handleRegisterAttempt
