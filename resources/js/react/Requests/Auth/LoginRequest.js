@@ -150,7 +150,7 @@ class LoginRequest extends Component {
                       <label className="form-check-label" htmlFor="remember">Stay logged in</label>
                     </div>
 
-                    <button className='btn btn-primary'>Create</button>
+                    <button className='btn btn-primary'>Login</button>
                   </form>
 
                 </div>

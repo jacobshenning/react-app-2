@@ -187,7 +187,7 @@ class RegisterRequest extends Component {
                       <label className="form-check-label" htmlFor="remember">Stay logged in</label>
                     </div>
 
-                    <button className='btn btn-primary'>Create</button>
+                    <button className='btn btn-primary'>Create an Account</button>
                   </form>
 
                 </div>
