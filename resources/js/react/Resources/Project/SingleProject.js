@@ -16,7 +16,8 @@ class SingleProject extends Component {
       project: {},
       tasks: [],
       title: '',
-      errors: []
+      errors: [],
+      loading: false,
     }
 
     this.handleFieldChange = this.handleFieldChange.bind(this)
@@ -27,6 +28,9 @@ class SingleProject extends Component {
   }
 
   componentDidMount () {
+    this.setState({
+      loading: true
+    })
     axios
       .get('/api/auth/user')
       .then(response => {
@@ -40,12 +44,20 @@ class SingleProject extends Component {
       })
     const projectId = this.props.match.params.id
 
-    axios.get(`/api/projects/${projectId}`).then(response => {
-      this.setState({
-        project: response.data,
-        tasks: response.data.tasks
+    axios
+      .get(`/api/projects/${projectId}`)
+      .then(response => {
+        this.setState({
+          project: response.data,
+          tasks: response.data.tasks,
+          loading: false,
+        })
       })
-    })
+      .catch(error => {
+        const { history } = this.props
+        history.push('/dashboard/projects')
+      })
+
   }
 
   handleFieldChange (event) {
@@ -57,6 +69,10 @@ class SingleProject extends Component {
   handleAddNewTask (event) {
     event.preventDefault()
 
+    this.setState({
+      loading: true
+    })
+
     const task = {
       title: this.state.title,
       project_id: this.state.project.id
@@ -65,19 +81,16 @@ class SingleProject extends Component {
     axios
       .post(`/api/projects/${this.state.project.id}/tasks`, task)
       .then(response => {
-        // clear form input
-        this.setState({
-          title: ''
-        })
-
-        // add new task to list of tasks
         this.setState(prevState => ({
-          tasks: prevState.tasks.concat(response.data)
+          title: '',
+          tasks: prevState.tasks.concat(response.data),
+          loading: false,
         }))
       })
       .catch(error => {
         this.setState({
-          errors: error.response.data.errors
+          errors: error.response.data.errors,
+          loading: false,
         })
       })
   }
@@ -99,23 +112,42 @@ class SingleProject extends Component {
   handleMarkProjectAsCompleted () {
     const { history } = this.props
 
+    this.setState({
+      loading: true
+    })
+
     axios
       .put(`/api/projects/${this.state.project.id}`)
       .then(response => history.push('/dashboard/projects'))
+      .catch(error => {
+        this.setState({
+          loading: false
+        })
+      })
   }
 
   handleMarkTaskAsCompleted (taskId) {
-    axios.put(`/api/projects/${this.state.project.id}/tasks/${taskId}`).then(response => {
-      this.setState(prevState => ({
-        tasks: prevState.tasks.filter(task => {
-          return task.id !== taskId
-        })
-      }))
+    this.setState({
+      loading: true
     })
+
+    axios
+      .put(`/api/projects/${this.state.project.id}/tasks/${taskId}`)
+      .then(response => {
+        this.setState(prevState => ({
+          tasks: prevState.tasks.filter(task => {
+            return task.id !== taskId
+          }),
+          loading: false
+        }))
+      })
   }
 
   render () {
-    const { project, tasks } = this.state
+    const { project, tasks, loading } = this.state
+
+    const loadingBarClass = loading ? 'loading-bar-tall' : ''
+    const progressBarClass = loading ? 'progress-bar-striped progress-bar-animated' : ''
 
     return (
       <div id='dashboard'>
@@ -128,6 +160,10 @@ class SingleProject extends Component {
             <div className='col-lg-9 col-md-8'>
             <div className='card'>
               <div className='card-header'>{project.name}</div>
+
+              <div className={'progress ' + loadingBarClass}>
+                <div className={'progress-bar ' + progressBarClass}></div>
+              </div>
 
               <div className='card-body'>
                 <p>{project.description}</p>

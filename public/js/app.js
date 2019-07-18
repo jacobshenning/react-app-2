@@ -66227,6 +66227,7 @@ function (_Component) {
       message: '',
       messages: [],
       errors: [],
+      loading: false,
       intervalId: ''
     };
     _this.handleFieldChange = _this.handleFieldChange.bind(_assertThisInitialized(_this));
@@ -66251,6 +66252,9 @@ function (_Component) {
       var data = {
         message: this.state.message
       };
+      this.setState({
+        loading: true
+      });
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/messages/create', data).then(function (response) {
         _this2.setState({
           message: ''
@@ -66282,9 +66286,13 @@ function (_Component) {
     value: function loadMessages() {
       var _this3 = this;
 
+      this.setState({
+        loading: true
+      });
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/messages/all').then(function (response) {
         _this3.setState({
-          messages: response.data
+          messages: response.data,
+          loading: false
         });
 
         var chatBox = document.getElementById('chat-box');
@@ -66298,6 +66306,9 @@ function (_Component) {
     value: function componentDidMount() {
       var _this4 = this;
 
+      this.setState({
+        loading: true
+      });
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/auth/user').then(function (response) {
         _this4.setState({
           user: response.data
@@ -66307,7 +66318,7 @@ function (_Component) {
         history.push('/login');
       });
       this.loadMessages();
-      var intervalId = setInterval(this.loadMessages, 15000);
+      var intervalId = setInterval(this.loadMessages, 5000);
       this.setState({
         intervalId: intervalId
       });
@@ -66322,7 +66333,10 @@ function (_Component) {
     value: function render() {
       var _this$state = this.state,
           messages = _this$state.messages,
-          user = _this$state.user;
+          user = _this$state.user,
+          loading = _this$state.loading;
+      var loadingBarClass = loading ? 'loading-bar-tall' : '';
+      var progressBarClass = loading ? 'progress-bar-striped progress-bar-animated' : '';
       return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         id: "dashboard"
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_Sections_Navs_Header__WEBPACK_IMPORTED_MODULE_3__["default"], null), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
@@ -66338,6 +66352,10 @@ function (_Component) {
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: "card-header"
       }, "Chat"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: 'progress ' + loadingBarClass
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: 'progress-bar ' + progressBarClass
+      })), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: "card-body"
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         id: "chat-box"
@@ -66447,6 +66465,7 @@ function (_Component) {
       user: [],
       name: '',
       description: '',
+      loading: false,
       errors: []
     };
     _this.handleFieldChange = _this.handleFieldChange.bind(_assertThisInitialized(_this));
@@ -66467,17 +66486,20 @@ function (_Component) {
       var _this2 = this;
 
       event.preventDefault();
+      this.setState({
+        loading: true
+      });
       var history = this.props.history;
       var project = {
         name: this.state.name,
         description: this.state.description
       };
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/projects', project).then(function (response) {
-        // redirect to the homepage
         history.push('/dashboard/projects');
       })["catch"](function (error) {
         _this2.setState({
-          errors: error.response.data.errors
+          errors: error.response.data.errors,
+          loading: false
         });
       });
     }
@@ -66500,9 +66522,13 @@ function (_Component) {
     value: function componentDidMount() {
       var _this3 = this;
 
+      this.setState({
+        loading: true
+      });
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/auth/user').then(function (response) {
         _this3.setState({
-          user: response.data
+          user: response.data,
+          loading: false
         });
       })["catch"](function (error) {
         var history = _this3.props.history;
@@ -66512,8 +66538,12 @@ function (_Component) {
   }, {
     key: "render",
     value: function render() {
-      var user = this.state.user;
-      var projects = this.state.projects;
+      var _this$state = this.state,
+          user = _this$state.user,
+          projects = _this$state.projects,
+          loading = _this$state.loading;
+      var loadingBarClass = loading ? 'loading-bar-tall' : '';
+      var progressBarClass = loading ? 'progress-bar-striped progress-bar-animated' : '';
       return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         id: "dashboard"
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_Sections_Navs_Header__WEBPACK_IMPORTED_MODULE_3__["default"], null), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
@@ -66529,6 +66559,10 @@ function (_Component) {
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: "card-header"
       }, "Create new project"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: 'progress ' + loadingBarClass
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: 'progress-bar ' + progressBarClass
+      })), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: "card-body"
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("form", {
         onSubmit: this.handleCreateNewProject
@@ -66649,7 +66683,9 @@ function (_Component) {
           loading: false
         });
       })["catch"](function (error) {
-        console.log(error);
+        _this2.setState({
+          loading: false
+        });
       });
     }
   }, {
@@ -66659,7 +66695,8 @@ function (_Component) {
           user = _this$state.user,
           projects = _this$state.projects,
           loading = _this$state.loading;
-      var loadingClass = loading ? 'progress-bar-striped progress-bar-animated' : '';
+      var loadingBarClass = loading ? 'loading-bar-tall' : '';
+      var progressBarClass = loading ? 'progress-bar-striped progress-bar-animated' : '';
       return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         id: "dashboard"
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_Sections_Navs_Header__WEBPACK_IMPORTED_MODULE_3__["default"], null), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
@@ -66675,9 +66712,9 @@ function (_Component) {
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: "card-header"
       }, "All projects"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
-        className: "progress"
+        className: 'progress ' + loadingBarClass
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
-        className: 'progress-bar' + loadingClass
+        className: 'progress-bar ' + progressBarClass
       })), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: "card-body"
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
@@ -66761,7 +66798,8 @@ function (_Component) {
       project: {},
       tasks: [],
       title: '',
-      errors: []
+      errors: [],
+      loading: false
     };
     _this.handleFieldChange = _this.handleFieldChange.bind(_assertThisInitialized(_this));
     _this.handleAddNewTask = _this.handleAddNewTask.bind(_assertThisInitialized(_this));
@@ -66776,6 +66814,9 @@ function (_Component) {
     value: function componentDidMount() {
       var _this2 = this;
 
+      this.setState({
+        loading: true
+      });
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/auth/user').then(function (response) {
         _this2.setState({
           user: response.data
@@ -66788,8 +66829,12 @@ function (_Component) {
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/api/projects/".concat(projectId)).then(function (response) {
         _this2.setState({
           project: response.data,
-          tasks: response.data.tasks
+          tasks: response.data.tasks,
+          loading: false
         });
+      })["catch"](function (error) {
+        var history = _this2.props.history;
+        history.push('/dashboard/projects');
       });
     }
   }, {
@@ -66805,25 +66850,25 @@ function (_Component) {
       var _this3 = this;
 
       event.preventDefault();
+      this.setState({
+        loading: true
+      });
       var task = {
         title: this.state.title,
         project_id: this.state.project.id
       };
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/api/projects/".concat(this.state.project.id, "/tasks"), task).then(function (response) {
-        // clear form input
-        _this3.setState({
-          title: ''
-        }); // add new task to list of tasks
-
-
         _this3.setState(function (prevState) {
           return {
-            tasks: prevState.tasks.concat(response.data)
+            title: '',
+            tasks: prevState.tasks.concat(response.data),
+            loading: false
           };
         });
       })["catch"](function (error) {
         _this3.setState({
-          errors: error.response.data.errors
+          errors: error.response.data.errors,
+          loading: false
         });
       });
     }
@@ -66844,22 +66889,35 @@ function (_Component) {
   }, {
     key: "handleMarkProjectAsCompleted",
     value: function handleMarkProjectAsCompleted() {
+      var _this4 = this;
+
       var history = this.props.history;
+      this.setState({
+        loading: true
+      });
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.put("/api/projects/".concat(this.state.project.id)).then(function (response) {
         return history.push('/dashboard/projects');
+      })["catch"](function (error) {
+        _this4.setState({
+          loading: false
+        });
       });
     }
   }, {
     key: "handleMarkTaskAsCompleted",
     value: function handleMarkTaskAsCompleted(taskId) {
-      var _this4 = this;
+      var _this5 = this;
 
+      this.setState({
+        loading: true
+      });
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.put("/api/projects/".concat(this.state.project.id, "/tasks/").concat(taskId)).then(function (response) {
-        _this4.setState(function (prevState) {
+        _this5.setState(function (prevState) {
           return {
             tasks: prevState.tasks.filter(function (task) {
               return task.id !== taskId;
-            })
+            }),
+            loading: false
           };
         });
       });
@@ -66867,11 +66925,14 @@ function (_Component) {
   }, {
     key: "render",
     value: function render() {
-      var _this5 = this;
+      var _this6 = this;
 
       var _this$state = this.state,
           project = _this$state.project,
-          tasks = _this$state.tasks;
+          tasks = _this$state.tasks,
+          loading = _this$state.loading;
+      var loadingBarClass = loading ? 'loading-bar-tall' : '';
+      var progressBarClass = loading ? 'progress-bar-striped progress-bar-animated' : '';
       return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         id: "dashboard"
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_Sections_Navs_Header__WEBPACK_IMPORTED_MODULE_3__["default"], null), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
@@ -66887,6 +66948,10 @@ function (_Component) {
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: "card-header"
       }, project.name), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: 'progress ' + loadingBarClass
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: 'progress-bar ' + progressBarClass
+      })), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: "card-body"
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("p", null, project.description), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
         className: "btn btn-primary btn-sm",
@@ -66914,7 +66979,7 @@ function (_Component) {
           key: task.id
         }, task.title, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
           className: "btn btn-primary btn-sm",
-          onClick: _this5.handleMarkTaskAsCompleted.bind(_this5, task.id)
+          onClick: _this6.handleMarkTaskAsCompleted.bind(_this6, task.id)
         }, "Mark as completed"));
       }))))))));
     }
@@ -66997,6 +67062,10 @@ function (_Component) {
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: "card-header"
       }, "Scalable Structure"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "progress"
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "progress-bar"
+      })), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: "card-body"
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("p", null, " By using a new scalable structure which is able to mirror Laravel Http namespacing, this app is capable of building out a SPA to the full extent of Laravel API"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: "btn-group",
@@ -67164,7 +67233,8 @@ function (_Component) {
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(Dashboard).call(this));
     _this.state = {
-      user: []
+      user: [],
+      loading: false
     };
     return _this;
   }
@@ -67174,9 +67244,13 @@ function (_Component) {
     value: function componentDidMount() {
       var _this2 = this;
 
+      this.setState({
+        loading: true
+      });
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/auth/user').then(function (response) {
         _this2.setState({
-          user: response.data
+          user: response.data,
+          loading: false
         });
       })["catch"](function (error) {
         var history = _this2.props.history;
@@ -67186,7 +67260,11 @@ function (_Component) {
   }, {
     key: "render",
     value: function render() {
-      var user = this.state.user;
+      var _this$state = this.state,
+          user = _this$state.user,
+          loading = _this$state.loading;
+      var loadingBarClass = loading ? 'loading-bar-tall' : '';
+      var progressBarClass = loading ? 'progress-bar-striped progress-bar-animated' : '';
       return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         id: "dashboard"
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_Sections_Navs_Header__WEBPACK_IMPORTED_MODULE_3__["default"], null), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
@@ -67202,6 +67280,10 @@ function (_Component) {
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: "card-header"
       }, "Dashboard"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: 'progress ' + loadingBarClass
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: 'progress-bar ' + progressBarClass
+      })), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: "card-body"
       }, "Welcome ", user.name))))));
     }
@@ -67267,7 +67349,8 @@ function (_Component) {
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(Dashboard).call(this));
     _this.state = {
-      user: []
+      user: [],
+      loading: false
     };
     return _this;
   }
@@ -67277,9 +67360,13 @@ function (_Component) {
     value: function componentDidMount() {
       var _this2 = this;
 
+      this.setState({
+        loading: true
+      });
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/auth/user').then(function (response) {
         _this2.setState({
-          user: response.data
+          user: response.data,
+          loading: false
         });
       })["catch"](function (error) {
         var history = _this2.props.history;
@@ -67289,7 +67376,11 @@ function (_Component) {
   }, {
     key: "render",
     value: function render() {
-      var user = this.state.user;
+      var _this$state = this.state,
+          user = _this$state.user,
+          loading = _this$state.loading;
+      var loadingBarClass = loading ? 'loading-bar-tall' : '';
+      var progressBarClass = loading ? 'progress-bar-striped progress-bar-animated' : '';
       return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         id: "profile"
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_Sections_Navs_Header__WEBPACK_IMPORTED_MODULE_3__["default"], null), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
@@ -67305,6 +67396,10 @@ function (_Component) {
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: "card-header"
       }, "Profile"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: 'progress ' + loadingBarClass
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: 'progress-bar ' + progressBarClass
+      })), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: "card-body"
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("p", null, " Name: ", user.name, " "), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("p", null, " Email: ", user.email, " ")))))));
     }
@@ -67365,23 +67460,27 @@ function (_Component) {
     key: "render",
     value: function render() {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
-        className: "list-group"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
-        className: "list-group-item bg-light"
-      }, "Menu"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
-        className: "list-group-item",
+        className: "list-group card"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "card-header"
+      }, "Menu"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "progress"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "progress-bar"
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
+        className: "list-group-item border-0",
         exact: true,
         to: "/dashboard"
       }, "Dashboard"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
-        className: "list-group-item",
+        className: "list-group-item border-0",
         exact: true,
         to: "/dashboard/profile"
       }, "Profile"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
-        className: "list-group-item",
-        exact: true,
+        className: "list-group-item border-0",
+        exact: false,
         to: "/dashboard/projects"
       }, "Projects"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
-        className: "list-group-item",
+        className: "list-group-item border-0",
         exact: true,
         to: "/dashboard/chat"
       }, "Chat"));

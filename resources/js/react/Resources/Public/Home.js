@@ -22,7 +22,9 @@ class Home extends Component {
               <p className='lead'>A new React Application structure designed to be sustainable for full SPA</p>
               <div className='card'>
                 <div className='card-header'>Scalable Structure</div>
-
+                <div className='progress'>
+                  <div className='progress-bar'></div>
+                </div>
                 <div className='card-body'>
                   <p> By using a new scalable structure which is able to mirror Laravel Http namespacing, this app is capable of building out a SPA to the full extent of Laravel API</p>
                   <div className="btn-group" role="group" aria-label="Basic example">

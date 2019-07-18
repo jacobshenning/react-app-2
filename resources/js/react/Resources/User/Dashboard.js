@@ -11,16 +11,21 @@ class Dashboard extends Component {
     super()
 
     this.state = {
-      user: []
+      user: [],
+      loading: false,
     }
   }
 
   componentDidMount () {
+    this.setState({
+      loading: true,
+    })
     axios
       .get('/api/auth/user')
       .then(response => {
         this.setState({
-          user: response.data
+          user: response.data,
+          loading: false
         })
       })
       .catch(error => {
@@ -30,7 +35,10 @@ class Dashboard extends Component {
   }
 
   render () {
-    const { user } = this.state
+    const { user, loading } = this.state
+
+    const loadingBarClass = loading ? 'loading-bar-tall' : ''
+    const progressBarClass = loading ? 'progress-bar-striped progress-bar-animated' : ''
 
     return (
       <div id='dashboard'>
@@ -43,6 +51,10 @@ class Dashboard extends Component {
             <div className='col-lg-9 col-md-8'>
               <div className='card'>
                 <div className='card-header'>Dashboard</div>
+
+                <div className={'progress ' + loadingBarClass}>
+                  <div className={'progress-bar ' + progressBarClass}></div>
+                </div>
 
                 <div className='card-body'>
                   Welcome {user.name}

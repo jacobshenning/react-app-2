@@ -15,6 +15,7 @@ class MessageBox extends Component {
       message: '',
       messages: [],
       errors: [],
+      loading: false,
       intervalId: ''
     }
 
@@ -36,6 +37,10 @@ class MessageBox extends Component {
     const data = {
       message: this.state.message,
     }
+
+    this.setState({
+      loading: true
+    })
 
     axios
       .post('/api/messages/create', data)
@@ -67,9 +72,13 @@ class MessageBox extends Component {
   }
 
   loadMessages() {
+    this.setState({
+      loading: true
+    })
     axios.get('/api/messages/all').then(response => {
       this.setState({
-        messages: response.data
+        messages: response.data,
+        loading: false
       })
       var chatBox = document.getElementById('chat-box');
       chatBox.scrollTop = chatBox.scrollHeight;
@@ -79,6 +88,9 @@ class MessageBox extends Component {
   }
 
   componentDidMount () {
+    this.setState({
+      loading: true
+    })
     axios
       .get('/api/auth/user')
       .then(response => {
@@ -91,7 +103,7 @@ class MessageBox extends Component {
         history.push('/login')
       })
     this.loadMessages()
-    var intervalId = setInterval(this.loadMessages, 15000)
+    var intervalId = setInterval(this.loadMessages, 5000)
     this.setState({intervalId: intervalId})
   }
 
@@ -100,7 +112,10 @@ class MessageBox extends Component {
   }
 
   render () {
-    const { messages, user } = this.state
+    const { messages, user, loading } = this.state
+
+    const loadingBarClass = loading ? 'loading-bar-tall' : ''
+    const progressBarClass = loading ? 'progress-bar-striped progress-bar-animated' : ''
 
     return (
       <div id='dashboard'>
@@ -113,6 +128,10 @@ class MessageBox extends Component {
             <div className='col-lg-9 col-md-8'>
               <div className='card'>
                 <div className='card-header'>Chat</div>
+
+                <div className={'progress ' + loadingBarClass}>
+                  <div className={'progress-bar ' + progressBarClass}></div>
+                </div>
 
                 <div className='card-body'>
                   <div id="chat-box">

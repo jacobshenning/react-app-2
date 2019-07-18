@@ -15,6 +15,7 @@ class NewProject extends Component {
       user: [],
       name: '',
       description: '',
+      loading: false,
       errors: []
     }
 
@@ -33,6 +34,10 @@ class NewProject extends Component {
   handleCreateNewProject (event) {
     event.preventDefault()
 
+    this.setState({
+      loading: true
+    })
+
     const { history } = this.props
 
     const project = {
@@ -43,12 +48,12 @@ class NewProject extends Component {
     axios
       .post('/api/projects', project)
       .then(response => {
-        // redirect to the homepage
         history.push('/dashboard/projects')
       })
       .catch(error => {
         this.setState({
-          errors: error.response.data.errors
+          errors: error.response.data.errors,
+          loading: false,
         })
       })
   }
@@ -68,11 +73,15 @@ class NewProject extends Component {
   }
 
   componentDidMount () {
+    this.setState({
+      loading: true
+    })
     axios
       .get('/api/auth/user')
       .then(response => {
         this.setState({
-          user: response.data
+          user: response.data,
+          loading: false
         })
       })
       .catch(error => {
@@ -82,8 +91,10 @@ class NewProject extends Component {
   }
 
   render () {
-    const { user } = this.state
-    const { projects } = this.state
+    const { user, projects, loading } = this.state
+
+    const loadingBarClass = loading ? 'loading-bar-tall' : ''
+    const progressBarClass = loading ? 'progress-bar-striped progress-bar-animated' : ''
 
     return (
       <div id='dashboard'>
@@ -96,6 +107,9 @@ class NewProject extends Component {
             <div className='col-lg-9 col-md-8'>
             <div className='card'>
               <div className='card-header'>Create new project</div>
+              <div className={'progress ' + loadingBarClass}>
+                <div className={'progress-bar ' + progressBarClass}></div>
+              </div>
               <div className='card-body'>
 
                 <form onSubmit={this.handleCreateNewProject}>

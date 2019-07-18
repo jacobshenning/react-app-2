@@ -33,20 +33,26 @@ class ProjectsList extends Component {
         const { history } = this.props
         history.push('/login')
       })
-    axios.get('/api/projects').then(response => {
-      this.setState({
-        projects: response.data,
-        loading: false,
+    axios
+      .get('/api/projects')
+      .then(response => {
+        this.setState({
+          projects: response.data,
+          loading: false,
+        })
       })
-    }).catch(error => {
-      console.log(error)
-    })
+      .catch(error => {
+        this.setState({
+          loading: false,
+        })
+      })
   }
 
   render () {
     const { user, projects, loading } = this.state
 
-    const loadingClass = loading ? 'progress-bar-striped progress-bar-animated' : ''
+    const loadingBarClass = loading ? 'loading-bar-tall' : ''
+    const progressBarClass = loading ? 'progress-bar-striped progress-bar-animated' : ''
 
     return (
       <div id='dashboard'>
@@ -59,8 +65,8 @@ class ProjectsList extends Component {
             <div className='col-lg-9 col-md-8'>
               <div className='card'>
                 <div className='card-header'>All projects</div>
-                <div className="progress">
-                  <div className={'progress-bar' + loadingClass}></div>
+                <div className={'progress ' + loadingBarClass}>
+                  <div className={'progress-bar ' + progressBarClass}></div>
                 </div>
                 <div className='card-body'>
                   <Link className='btn btn-primary btn-sm mb-3' to='/dashboard/projects/create'>

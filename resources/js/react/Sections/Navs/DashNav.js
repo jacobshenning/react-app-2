@@ -8,12 +8,15 @@ class DashNav extends Component {
 
   render () {
     return (
-      <ul className="list-group">
-        <li className="list-group-item bg-light">Menu</li>
-        <NavLink className="list-group-item" exact={true} to='/dashboard'>Dashboard</NavLink>
-        <NavLink className="list-group-item" exact={true} to='/dashboard/profile'>Profile</NavLink>
-        <NavLink className="list-group-item" exact={true} to='/dashboard/projects'>Projects</NavLink>
-        <NavLink className="list-group-item" exact={true} to='/dashboard/chat'>Chat</NavLink>
+      <ul className="list-group card">
+        <div className="card-header">Menu</div>
+        <div className='progress'>
+          <div className='progress-bar'></div>
+        </div>
+        <NavLink className="list-group-item border-0" exact={true} to='/dashboard'>Dashboard</NavLink>
+        <NavLink className="list-group-item border-0" exact={true} to='/dashboard/profile'>Profile</NavLink>
+        <NavLink className="list-group-item border-0" exact={false} to='/dashboard/projects'>Projects</NavLink>
+        <NavLink className="list-group-item border-0" exact={true} to='/dashboard/chat'>Chat</NavLink>
       </ul>
     )
   }
