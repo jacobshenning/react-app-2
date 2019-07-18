@@ -54,7 +54,12 @@ class Structure extends Component {
               <div className="alert alert-warning" role="alert">
                 <h4> Section Components </h4>
                 <hr />
-                <p>Remember how I said Resource Components will sometimes handle multiple resource interactions? That's what makes request components different. Request components are designed to do one thing: Facilitate a single request. Request components should be used anytime you need to validate request data and might be sending information back and forth frequently.</p>
+                <p>Section components are low functioning components designed to be used over and over again. Section components are going to be things like navbars and footers, and rarely carry any special functionality.</p>
+              </div>
+              <div className="alert alert-info" role="alert">
+                <h4> Components </h4>
+                <hr />
+                <p>Components are the simplest form of component. Their only job is to display data passed into them. They don't bind to anything, they aren't updating anything, they're just displaying data on the user interface.</p>
               </div>
             </div>
           </div>
