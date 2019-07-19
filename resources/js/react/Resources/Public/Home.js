@@ -32,12 +32,14 @@ class Home extends Component {
                     <Link className="btn btn-outline-primary" to='/structure'>Checkout Structure</Link>
                     <Link className="btn btn-outline-primary" to='/register'>Create Account</Link>
                     <Link className="btn btn-outline-primary" to='/dashboard'>Visit Dashboard</Link>
+                    <a className="btn btn-outline-primary" href='https://github.com/jacobshenning/react-app/issues/new' target='_blank'>Report Bug</a>
                     <a className="btn btn-outline-primary" href='https://github.com/jacobshenning/react-app' target='_blank'>GitHub</a>
                   </div>
                   <div className="btn-group-vertical btn-block d-flex d-md-none">
                     <Link className="btn btn-outline-primary" to='/structure'>Checkout Structure</Link>
                     <Link className="btn btn-outline-primary" to='/register'>Create Account</Link>
                     <Link className="btn btn-outline-primary" to='/dashboard'>Visit Dashboard</Link>
+                    <a className="btn btn-outline-primary" href='https://github.com/jacobshenning/react-app/issues/new' target='_blank'>Report Bug</a>
                     <a className="btn btn-outline-primary" href='https://github.com/jacobshenning/react-app' target='_blank'>GitHub</a>
                   </div>
                 </div>
