@@ -26,6 +26,10 @@ class MessageController extends Controller
 
     public function all()
     {
-        return Message::orderBy('created_at', 'asc')->with('user')->get()->toJson();
+        return
+          Message::orderBy('created_at', 'asc')
+          ->with('user:id,name')
+          ->get()
+          ->toJson();
     }
 }
