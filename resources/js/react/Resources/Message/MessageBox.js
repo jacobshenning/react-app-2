@@ -64,7 +64,7 @@ class MessageBox extends Component {
   renderErrorFor (field) {
     if (this.hasErrorFor(field)) {
       return (
-        <span className='invalid-feedback position-absolute pt-5'>
+        <span className='invalid-feedback position-absolute mt-5'>
           <strong>{this.state.errors[field][0]}</strong>
         </span>
       )
@@ -77,7 +77,7 @@ class MessageBox extends Component {
     })
     let chatBox = document.getElementById('chat-box')
     let correctScroll = false
-    if (chatBox.scrollHeight - chatBox.scrollTop - chatBox.clientHeight<=0) {
+    if (chatBox.scrollHeight - chatBox.scrollTop - chatBox.clientHeight<=20) {
       correctScroll = true
     }
     axios.get('/api/messages/all').then(response => {
@@ -127,7 +127,7 @@ class MessageBox extends Component {
     const progressBarClass = loading ? 'progress-bar-striped progress-bar-animated' : ''
 
     return (
-      <div id='dashboard'>
+      <div id='message-box' className='pb-2'>
         <Header />
         <div className='container py-4'>
           <div className='row justify-content-center'>

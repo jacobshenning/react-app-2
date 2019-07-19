@@ -27,8 +27,9 @@ class ProjectPolicy
      * @param  \App\Project  $project
      * @return bool
      */
-    public function update(User $user, Project $project)
+    public function update(User $user)
     {
+        $project = request()->route('project');
         return $user->id === $project->user_id;
     }
 }

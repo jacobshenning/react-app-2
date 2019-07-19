@@ -31,6 +31,10 @@ class SingleProject extends Component {
     this.setState({
       loading: true
     })
+    if (!window.api_token)  {
+      const { history } = this.props
+      history.push('/login')
+    }
     axios
       .get('/api/auth/user')
       .then(response => {
@@ -73,13 +77,8 @@ class SingleProject extends Component {
       loading: true
     })
 
-    const task = {
-      title: this.state.title,
-      project_id: this.state.project.id
-    }
-
     axios
-      .post(`/api/projects/${this.state.project.id}/tasks`, task)
+      .post(`/api/projects/${this.state.project.id}/tasks`, {title: this.state.title})
       .then(response => {
         this.setState(prevState => ({
           title: '',

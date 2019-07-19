@@ -14,7 +14,7 @@ class CreateRequest extends FormRequest
      */
     public function authorize()
     {
-      $project = Project::find($this->route('project'))->first();
+      $project = request()->route('project');
 
       return $project && $this->user()->can('update', $project);
     }

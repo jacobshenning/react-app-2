@@ -8,6 +8,7 @@
 
         <title>React app</title>
         <meta name="description" content="React app">
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
 
         <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 
