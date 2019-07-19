@@ -172,7 +172,7 @@ class SingleProject extends Component {
                   className='btn btn-primary btn-sm'
                   onClick={this.handleMarkProjectAsCompleted}
                 >
-                  Mark as completed
+                  Mark project as completed
                 </button>
 
                 <hr />
@@ -189,7 +189,7 @@ class SingleProject extends Component {
                     />
 
                     <div className='input-group-append'>
-                      <button className='btn btn-primary'>Add</button>
+                      <button className='btn btn-primary'>Add Task</button>
                     </div>
 
                     {this.renderErrorFor('title')}
@@ -211,7 +211,7 @@ class SingleProject extends Component {
                           task.id
                         )}
                       >
-                        Mark as completed
+                        Mark task as completed
                       </button>
                     </li>
                   ))}

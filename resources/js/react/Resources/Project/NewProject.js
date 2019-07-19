@@ -141,7 +141,7 @@ class NewProject extends Component {
                     {this.renderErrorFor('description')}
                   </div>
 
-                  <button className='btn btn-primary'>Create</button>
+                  <button className='btn btn-primary'>Create New Project</button>
                 </form>
 
               </div>

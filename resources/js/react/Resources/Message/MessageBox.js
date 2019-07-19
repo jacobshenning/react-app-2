@@ -64,7 +64,7 @@ class MessageBox extends Component {
   renderErrorFor (field) {
     if (this.hasErrorFor(field)) {
       return (
-        <span className='invalid-feedback'>
+        <span className='invalid-feedback position-absolute pt-5'>
           <strong>{this.state.errors[field][0]}</strong>
         </span>
       )
@@ -75,15 +75,24 @@ class MessageBox extends Component {
     this.setState({
       loading: true
     })
+    let chatBox = document.getElementById('chat-box')
+    let correctScroll = false
+    if (chatBox.scrollHeight - chatBox.scrollTop - chatBox.clientHeight<=0) {
+      correctScroll = true
+    }
     axios.get('/api/messages/all').then(response => {
       this.setState({
         messages: response.data,
         loading: false
       })
-      var chatBox = document.getElementById('chat-box');
-      chatBox.scrollTop = chatBox.scrollHeight;
+      if (correctScroll) {
+        chatBox = document.getElementById('chat-box');
+        chatBox.scrollTop = chatBox.scrollHeight;
+      }
     }).catch(error => {
-      console.log(error)
+      this.setState({
+        errors: []
+      })
     })
   }
 
@@ -133,8 +142,8 @@ class MessageBox extends Component {
                   <div className={'progress-bar ' + progressBarClass}></div>
                 </div>
 
-                <div className='card-body'>
-                  <div id="chat-box">
+                <div className='card-body py-0'>
+                  <div id="chat-box" className="pt-3">
                     <div id="chat-content">
                       {messages.map(message => (
                         <div key={message.id} className={'row' + (message.user.id === user.id ? ' flex-row-reverse' : '')}>
@@ -166,7 +175,7 @@ class MessageBox extends Component {
                       onChange={this.handleFieldChange}
                     />
                     <div className="input-group-append">
-                      <button className="btn btn-primary px-4" type="submit">Send</button>
+                      <button className="btn btn-primary px-4" type="submit">Send Message</button>
                     </div>
                     {this.renderErrorFor('message')}
                   </div>
